@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: kms-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/KavenWang/Springcloud-Learning
+          username: KavenWang
+          password: wangwei881008
+          searchPaths: spring-cloud-in-action/config-repo
+          #配置多个仓库，pattern为匹配模式，uri为仓库地址。首先会在本地创建多个仓库文件夹（配置文件未下载），请求到相应的配置文件时才会clone到本地
+          repos:
+            #application=kaventest，匹配所有{application}-{profile}.properties/yml文件
+            kaventest.pattern : kaventest/*
+            kaventest.uri : https://github.com/KavenWang/config-server-test
+            #application=kaventest，匹配所有{application}-pro*.properties/yml文件
+            kavenpro.pattern : kavenpro/pro*
+            kavenpro.uri : https://github.com/KavenWang/config-server-pro
+#配置中心注册服务实现高可用            
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    instance-id: ${spring.application.name}.${server.port}
+  client:
+    registry-fetch-interval-seconds: 5
+    service-url:
+      defaultZone : http://localhost:1001/eureka/
+
+server:
+  port: 8099
+
+logging:
+  file: ${spring.application.name}.log
+security:
+  user:
+    name: kaven
+    password: 123  
+info:
+  name : 配置中心
+  version : 1.0.0
+  description : 配置中心
