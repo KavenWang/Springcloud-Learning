@@ -1,0 +1,24 @@
+server:
+  port: 1001
+
+spring:
+  application:
+    name: kaven-regist-center-server
+    
+#1.5.X版本之后，严格执行安全校验    
+management:
+  security:
+    enabled: false
+#日志文件    
+logging:
+  file: ${spring.application.name}.log
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    healthcheck:
+      enable: true
+    register-with-eureka: false
+    fetch-registry: false
+       

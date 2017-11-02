@@ -1,0 +1,27 @@
+server:
+  port: 10002
+
+spring:
+  application:
+    name: kaven-regist-center-server
+    
+#1.5.X版本之后，严格执行安全校验    
+management:
+  security:
+    enabled: false
+#日志文件    
+logging:
+  file: ${spring.application.name}.log
+
+eureka:
+  instance:
+    hostname: localhost
+    lease-renewal-interval-in-seconds: 10
+    instance-id: ${spring.application.name}.${server.port}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    registry-fetch-interval-seconds: 5
+    service-url:
+      defaultZone : http://localhost:10001/eureka/
+       
